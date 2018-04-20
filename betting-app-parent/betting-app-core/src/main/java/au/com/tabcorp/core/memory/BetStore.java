@@ -13,7 +13,7 @@ public class BetStore {
     }
 
     public boolean addBets(List<Bet> betList) {
-        if (betList != null) {
+        if (betList != null && validate(betList)) {
             return this.betList.addAll(betList);
         } else {
             return false;
@@ -22,5 +22,16 @@ public class BetStore {
 
     public List<Bet> loadAllBets() {
         return betList;
+    }
+
+    private boolean validate(List<Bet> bets) {
+        for (Bet newBet : bets) {
+            for (Bet existingBet : betList) {
+                if (newBet.getPropNumber() == existingBet.getPropNumber()) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

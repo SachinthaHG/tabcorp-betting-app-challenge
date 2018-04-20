@@ -1,5 +1,6 @@
 package au.com.tabcorp.configs;
 
+import au.com.tabcorp.core.services.BetReportService;
 import au.com.tabcorp.core.services.BetStoreService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -13,5 +14,10 @@ public class AppConfigs {
     @Bean
     public BetStoreService betStoreService() {
         return new BetStoreService();
+    }
+
+    @Bean
+    public BetReportService betReportService() {
+        return new BetReportService();
     }
 }

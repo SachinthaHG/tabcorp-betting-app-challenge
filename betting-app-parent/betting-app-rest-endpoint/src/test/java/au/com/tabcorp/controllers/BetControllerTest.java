@@ -1,6 +1,7 @@
 package au.com.tabcorp.controllers;
 
 import au.com.tabcorp.core.models.Bet;
+import au.com.tabcorp.core.models.BetType;
 import au.com.tabcorp.core.services.BetStoreService;
 import au.com.tabcorp.filters.CORSFilter;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -40,8 +41,8 @@ public class BetControllerTest {
     @Test
     public void saveBets_NonEmptyRequestBody_Created_BetsSaved() throws Exception {
         List<Bet> betList = new ArrayList<>();
-        betList.add(new Bet("2018-01-01 12:56", "WIN", 103333, 1081, 500.50));
-        betList.add(new Bet("2018-01-01 14:56", "TRIFECTA", 104567, 1080, 100.00));
+        betList.add(new Bet("2018-01-01 12:56", BetType.WIN, 103333, 1081, 500.50));
+        betList.add(new Bet("2018-01-01 14:56", BetType.TRIFECTA, 104567, 1080, 100.00));
 
         when(betStoreService.saveBets(anyListOf(Bet.class))).thenReturn(true);
         MvcResult response = mockMvc.perform(
@@ -53,7 +54,7 @@ public class BetControllerTest {
         verify(betStoreService, times(1)).saveBets(anyListOf(Bet.class));
         verifyNoMoreInteractions(betStoreService);
 
-        assertEquals(response.getResponse().getContentAsString(), "{\"results\":[\"Bets saved\"]}");
+        assertEquals(response.getResponse().getContentAsString(), "[\"Bets saved\"]");
     }
 
     @Test
@@ -70,7 +71,7 @@ public class BetControllerTest {
         verify(betStoreService, times(1)).saveBets(anyListOf(Bet.class));
         verifyNoMoreInteractions(betStoreService);
 
-        assertEquals(response.getResponse().getContentAsString(), "{\"results\":[\"Bets list is either null or empty\"]}");
+        assertEquals(response.getResponse().getContentAsString(), "[\"Bets list is either null or empty\"]");
     }
 
     private String asJsonString(final Object obj) {
