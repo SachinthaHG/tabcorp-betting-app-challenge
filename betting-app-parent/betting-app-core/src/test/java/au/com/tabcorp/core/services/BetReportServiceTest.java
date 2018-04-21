@@ -6,6 +6,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+
+import static org.mockito.Mockito.*;
+
 import org.mockito.MockitoAnnotations;
 import org.mockito.internal.matchers.apachecommons.ReflectionEquals;
 
@@ -19,8 +22,6 @@ import static org.junit.Assert.assertThat;
 /**
  * This is the test class to unit test the functionalities of BetReportService class
  */
-import static org.mockito.Mockito.when;
-
 public class BetReportServiceTest {
     @Mock
     private InMemoryBetsDao inMemoryBetsDao;
@@ -55,6 +56,9 @@ public class BetReportServiceTest {
         for (int i = 0; i < actualList.size(); i++) {
             assertThat(expectedList.get(i), new ReflectionEquals(actualList.get(i)));
         }
+
+        verify(inMemoryBetsDao, times(1)).getAllBets();
+        verifyNoMoreInteractions(inMemoryBetsDao);
     }
 
     @Test
@@ -74,6 +78,9 @@ public class BetReportServiceTest {
         for (int i = 0; i < actualList.size(); i++) {
             assertThat(expectedList.get(i), new ReflectionEquals(actualList.get(i)));
         }
+
+        verify(inMemoryBetsDao, times(1)).getAllBets();
+        verifyNoMoreInteractions(inMemoryBetsDao);
     }
 
     @Test
@@ -99,6 +106,9 @@ public class BetReportServiceTest {
         for (int i = 0; i < actualList.size(); i++) {
             assertThat(expectedList.get(i), new ReflectionEquals(actualList.get(i)));
         }
+
+        verify(inMemoryBetsDao, times(1)).getAllBets();
+        verifyNoMoreInteractions(inMemoryBetsDao);
     }
 
     @Test
@@ -118,6 +128,9 @@ public class BetReportServiceTest {
         for (int i = 0; i < actualList.size(); i++) {
             assertThat(expectedList.get(i), new ReflectionEquals(actualList.get(i)));
         }
+
+        verify(inMemoryBetsDao, times(1)).getAllBets();
+        verifyNoMoreInteractions(inMemoryBetsDao);
     }
 
     @Test
@@ -143,6 +156,9 @@ public class BetReportServiceTest {
         for (int i = 0; i < actualList.size(); i++) {
             assertThat(expectedList.get(i), new ReflectionEquals(actualList.get(i)));
         }
+
+        verify(inMemoryBetsDao, times(1)).getAllBets();
+        verifyNoMoreInteractions(inMemoryBetsDao);
     }
 
     @Test
@@ -162,6 +178,9 @@ public class BetReportServiceTest {
         for (int i = 0; i < actualList.size(); i++) {
             assertThat(expectedList.get(i), new ReflectionEquals(actualList.get(i)));
         }
+
+        verify(inMemoryBetsDao, times(1)).getAllBets();
+        verifyNoMoreInteractions(inMemoryBetsDao);
     }
 
     @Test
@@ -187,6 +206,9 @@ public class BetReportServiceTest {
         for (int i = 0; i < actualList.size(); i++) {
             assertThat(expectedList.get(i), new ReflectionEquals(actualList.get(i)));
         }
+
+        verify(inMemoryBetsDao, times(1)).getAllBets();
+        verifyNoMoreInteractions(inMemoryBetsDao);
     }
 
     @Test
@@ -206,5 +228,8 @@ public class BetReportServiceTest {
         for (int i = 0; i < actualList.size(); i++) {
             assertThat(expectedList.get(i), new ReflectionEquals(actualList.get(i)));
         }
+
+        verify(inMemoryBetsDao, times(1)).getAllBets();
+        verifyNoMoreInteractions(inMemoryBetsDao);
     }
 }
