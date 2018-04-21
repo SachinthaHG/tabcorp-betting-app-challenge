@@ -17,6 +17,9 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.anyListOf;
 import static org.mockito.Mockito.when;
 
+/**
+ * This is the test class to unit test the functionalities of BetStoreService class
+ */
 public class BesStoreServiceTest {
     @Mock
     private InMemoryBetsDao inMemoryBetsDao;
@@ -31,7 +34,7 @@ public class BesStoreServiceTest {
 
     @Test
     public void saveBets_EmptyList_False() {
-        List<Bet> betList = new ArrayList<Bet>();
+        List<Bet> betList = new ArrayList<>();
 
         when(inMemoryBetsDao.saveBets(anyListOf(Bet.class))).thenReturn(false);
         assertFalse(betStoreService.saveBets(betList));
@@ -39,7 +42,7 @@ public class BesStoreServiceTest {
 
     @Test
     public void saveBets_NonEmptyList_True() {
-        List<Bet> betList = new ArrayList<Bet>();
+        List<Bet> betList = new ArrayList<>();
         betList.add(new Bet("2018-01-01 12:56", BetType.WIN, 103333, 1081, 500.50));
         betList.add(new Bet("2018-01-01 14:56", BetType.TRIFECTA, 104567, 1080, 100.00));
         when(inMemoryBetsDao.saveBets(anyListOf(Bet.class))).thenReturn(true);

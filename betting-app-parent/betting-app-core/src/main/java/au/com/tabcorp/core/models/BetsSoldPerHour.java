@@ -1,5 +1,8 @@
 package au.com.tabcorp.core.models;
 
+/**
+ * model class for bets sold per hour
+ */
 public class BetsSoldPerHour {
     int hourOfTheDay;
     int betsSold;

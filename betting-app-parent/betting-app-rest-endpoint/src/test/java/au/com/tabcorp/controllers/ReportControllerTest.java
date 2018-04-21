@@ -3,6 +3,7 @@ package au.com.tabcorp.controllers;
 import au.com.tabcorp.core.models.*;
 import au.com.tabcorp.core.services.BetReportService;
 import au.com.tabcorp.filters.CORSFilter;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,6 +25,9 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * This is the test class to unit test the functionalities of ReportController class
+ */
 public class ReportControllerTest {
     private MockMvc mockMvc;
 
@@ -51,7 +55,7 @@ public class ReportControllerTest {
         MvcResult response = mockMvc.perform(get("/reports/investment-per-bet-type"))
                 .andExpect(status().isOk()).andReturn();
 
-        assertEquals(asJsonString(report), response.getResponse().getContentAsString());
+        assertEquals(convertToJsonString(report), response.getResponse().getContentAsString());
 
         verify(betReportService, times(1)).generateInvestmentPerBetTypeReport();
         verifyNoMoreInteractions(betReportService);
@@ -65,7 +69,7 @@ public class ReportControllerTest {
         MvcResult response = mockMvc.perform(get("/reports/investment-per-bet-type"))
                 .andExpect(status().isOk()).andReturn();
 
-        assertEquals(asJsonString(report), response.getResponse().getContentAsString());
+        assertEquals(convertToJsonString(report), response.getResponse().getContentAsString());
 
         verify(betReportService, times(1)).generateInvestmentPerBetTypeReport();
         verifyNoMoreInteractions(betReportService);
@@ -83,7 +87,7 @@ public class ReportControllerTest {
         MvcResult response = mockMvc.perform(get("/reports/investment-per-customer"))
                 .andExpect(status().isOk()).andReturn();
 
-        assertEquals(asJsonString(report), response.getResponse().getContentAsString());
+        assertEquals(convertToJsonString(report), response.getResponse().getContentAsString());
 
         verify(betReportService, times(1)).generateInvestmentPerCustomerReport();
         verifyNoMoreInteractions(betReportService);
@@ -97,12 +101,11 @@ public class ReportControllerTest {
         MvcResult response = mockMvc.perform(get("/reports/investment-per-customer"))
                 .andExpect(status().isOk()).andReturn();
 
-        assertEquals(asJsonString(report), response.getResponse().getContentAsString());
+        assertEquals(convertToJsonString(report), response.getResponse().getContentAsString());
 
         verify(betReportService, times(1)).generateInvestmentPerCustomerReport();
         verifyNoMoreInteractions(betReportService);
     }
-
 
     @Test
     public void getBetsSoldPerBetType_SavedBetsExist_NonEmptyReport() throws Exception {
@@ -116,7 +119,7 @@ public class ReportControllerTest {
         MvcResult response = mockMvc.perform(get("/reports/bets-sold-per-bet-type"))
                 .andExpect(status().isOk()).andReturn();
 
-        assertEquals(asJsonString(report), response.getResponse().getContentAsString());
+        assertEquals(convertToJsonString(report), response.getResponse().getContentAsString());
 
         verify(betReportService, times(1)).generateBetsSoldPerBetTypeReport();
         verifyNoMoreInteractions(betReportService);
@@ -130,7 +133,7 @@ public class ReportControllerTest {
         MvcResult response = mockMvc.perform(get("/reports/bets-sold-per-bet-type"))
                 .andExpect(status().isOk()).andReturn();
 
-        assertEquals(asJsonString(report), response.getResponse().getContentAsString());
+        assertEquals(convertToJsonString(report), response.getResponse().getContentAsString());
 
         verify(betReportService, times(1)).generateBetsSoldPerBetTypeReport();
         verifyNoMoreInteractions(betReportService);
@@ -148,7 +151,7 @@ public class ReportControllerTest {
         MvcResult response = mockMvc.perform(get("/reports/bets-sold-per-hour"))
                 .andExpect(status().isOk()).andReturn();
 
-        assertEquals(asJsonString(report), response.getResponse().getContentAsString());
+        assertEquals(convertToJsonString(report), response.getResponse().getContentAsString());
 
         verify(betReportService, times(1)).generateBetsSoldPerHourReport();
         verifyNoMoreInteractions(betReportService);
@@ -162,17 +165,13 @@ public class ReportControllerTest {
         MvcResult response = mockMvc.perform(get("/reports/bets-sold-per-hour"))
                 .andExpect(status().isOk()).andReturn();
 
-        assertEquals(asJsonString(report), response.getResponse().getContentAsString());
+        assertEquals(convertToJsonString(report), response.getResponse().getContentAsString());
 
         verify(betReportService, times(1)).generateBetsSoldPerHourReport();
         verifyNoMoreInteractions(betReportService);
     }
 
-    private String asJsonString(final Object obj) {
-        try {
-            return new ObjectMapper().writeValueAsString(obj);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    private String convertToJsonString(final Object obj) throws JsonProcessingException {
+        return new ObjectMapper().writeValueAsString(obj);
     }
 }

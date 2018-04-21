@@ -23,6 +23,9 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * This is the test class to unit test the functionalities of BetController class
+ */
 public class BetControllerTest {
     private MockMvc mockMvc;
 
@@ -71,7 +74,7 @@ public class BetControllerTest {
         verify(betStoreService, times(1)).saveBets(anyListOf(Bet.class));
         verifyNoMoreInteractions(betStoreService);
 
-        assertEquals(response.getResponse().getContentAsString(), "[\"Bets list is either null or empty\"]");
+        assertEquals(response.getResponse().getContentAsString(), "[\"Best list is null, empty or has duplicate PropNumbers\"]");
     }
 
     private String asJsonString(final Object obj) {

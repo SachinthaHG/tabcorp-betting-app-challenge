@@ -13,11 +13,12 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import static org.hamcrest.beans.SamePropertyValuesAs.samePropertyValuesAs;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
-
+/**
+ * This is the test class to unit test the functionalities of BetReportService class
+ */
 import static org.mockito.Mockito.when;
 
 public class BetReportServiceTest {
@@ -98,7 +99,6 @@ public class BetReportServiceTest {
         for (int i = 0; i < actualList.size(); i++) {
             assertThat(expectedList.get(i), new ReflectionEquals(actualList.get(i)));
         }
-
     }
 
     @Test
@@ -118,7 +118,6 @@ public class BetReportServiceTest {
         for (int i = 0; i < actualList.size(); i++) {
             assertThat(expectedList.get(i), new ReflectionEquals(actualList.get(i)));
         }
-
     }
 
     @Test

@@ -17,6 +17,9 @@ import static org.junit.Assert.*;
 import static org.mockito.Matchers.anyListOf;
 import static org.mockito.Mockito.when;
 
+/**
+ * This is the test class to unit test the functionalities of InMemoryBetDao class
+ */
 public class InMemoryBetsDaoTest {
     @Mock
     private BetStore betStore;
@@ -32,7 +35,7 @@ public class InMemoryBetsDaoTest {
 
     @Test
     public void saveBets_EmptyList_False() {
-        List<Bet> betList = new ArrayList<Bet>();
+        List<Bet> betList = new ArrayList<>();
 
         when(betStore.addBets(anyListOf(Bet.class))).thenReturn(false);
         assertFalse(inMemoryBetsDao.saveBets(betList));
@@ -40,7 +43,7 @@ public class InMemoryBetsDaoTest {
 
     @Test
     public void saveBets_NonEmptyList_True() {
-        List<Bet> betList = new ArrayList<Bet>();
+        List<Bet> betList = new ArrayList<>();
         betList.add(new Bet("2018-01-01 12:56", BetType.WIN, 103333, 1081, 500.50));
         betList.add(new Bet("2018-01-01 14:56", BetType.TRIFECTA, 104567, 1080, 100.00));
 
@@ -56,7 +59,7 @@ public class InMemoryBetsDaoTest {
 
     @Test
     public void getAllBets_EmptyList_EmptyList() {
-        List<Bet> betList = new ArrayList<Bet>();
+        List<Bet> betList = new ArrayList<>();
 
         when(betStore.loadAllBets()).thenReturn(betList);
         assertEquals(inMemoryBetsDao.getAllBets().size(), 0);
@@ -64,7 +67,7 @@ public class InMemoryBetsDaoTest {
 
     @Test
     public void getAllBets_NonEmptyList_ListOfBets() {
-        List<Bet> betList = new ArrayList<Bet>();
+        List<Bet> betList = new ArrayList<>();
         betList.add(new Bet("2018-01-01 12:56", BetType.WIN, 103333, 1081, 500.50));
         betList.add(new Bet("2018-01-01 14:56", BetType.TRIFECTA, 104567, 1080, 100.00));
 

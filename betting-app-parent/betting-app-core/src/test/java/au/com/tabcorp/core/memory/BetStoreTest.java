@@ -10,7 +10,9 @@ import java.util.List;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-
+/**
+ * This is the test class to unit test the functionalities of BetStore class
+ */
 public class BetStoreTest {
     private BetStore betStore = new BetStore();
 

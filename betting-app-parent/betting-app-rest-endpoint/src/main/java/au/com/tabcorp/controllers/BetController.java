@@ -14,22 +14,31 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This is the endpoint to handle HTTP requests related to bets
+ */
 @Controller
 @RequestMapping("bets")
 public class BetController {
     @Autowired
     private BetStoreService betStoreService;
 
+    /**
+     * accepts a HTTP POST request with a bet list sent from client side
+     *
+     * @param betList list of bets in JSON format
+     * @return list of strings in JSON format
+     */
     @RequestMapping(value = "/save", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public ResponseEntity<List<String>> saveBets(@RequestBody List<Bet> betList) {
         List<String> response = new ArrayList<>();
         if (betStoreService.saveBets(betList)) {
             response.add("Bets saved");
-            return new ResponseEntity<List<String>>(response, HttpStatus.CREATED);
+            return new ResponseEntity<>(response, HttpStatus.CREATED);
         } else {
-            response.add("Bets list is either null or empty");
-            return new ResponseEntity<List<String>>(response, HttpStatus.CONFLICT);
+            response.add("Best list is null, empty or has duplicate PropNumbers");
+            return new ResponseEntity<>(response, HttpStatus.CONFLICT);
         }
     }
 }

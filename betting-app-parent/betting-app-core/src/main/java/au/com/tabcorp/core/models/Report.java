@@ -1,7 +1,8 @@
 package au.com.tabcorp.core.models;
 
-import java.util.List;
-
+/**
+ * model class for a report
+ */
 public class Report<T> {
     private T reports;
 

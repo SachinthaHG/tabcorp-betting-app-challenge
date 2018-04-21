@@ -1,5 +1,8 @@
 package au.com.tabcorp.core.models;
 
+/**
+ * model class for investment per customer
+ */
 public class InvestmentPerCustomer {
     private int customerId;
     private double totalInvestment;

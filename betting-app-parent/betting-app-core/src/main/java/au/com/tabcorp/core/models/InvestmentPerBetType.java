@@ -1,5 +1,8 @@
 package au.com.tabcorp.core.models;
 
+/**
+ * model class for investment per bet type
+ */
 public class InvestmentPerBetType {
     private BetType betType;
     private double totalInvestment;

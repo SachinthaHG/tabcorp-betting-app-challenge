@@ -9,6 +9,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+/**
+ * model class for a bet
+ */
 public class Bet {
     @JsonProperty("DateTime")
     private String dateTime;
@@ -77,6 +80,11 @@ public class Bet {
         this.investment = investment;
     }
 
+    /**
+     * finds the hour of the day with the given time stamp
+     *
+     * @return hour of the day
+     */
     public int getHourOfTheDay() {
         try {
             Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(dateTime);

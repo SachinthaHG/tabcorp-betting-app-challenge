@@ -1,5 +1,8 @@
 package au.com.tabcorp.core.models;
 
+/**
+ * model class for bets sold per bet type
+ */
 public class BetsSoldPerBetType {
     private BetType betType;
     private int betsSold;
