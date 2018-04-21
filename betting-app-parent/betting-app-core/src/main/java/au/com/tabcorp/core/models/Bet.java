@@ -83,7 +83,7 @@ public class Bet {
     /**
      * finds the hour of the day with the given time stamp
      *
-     * @return hour of the day
+     * @return hour of the day (returns -1 if ParseException)
      */
     public int getHourOfTheDay() {
         try {
