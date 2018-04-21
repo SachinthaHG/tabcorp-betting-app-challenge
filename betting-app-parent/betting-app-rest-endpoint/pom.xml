@@ -30,6 +30,8 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
+
+            <!--configure tomcat in intellij IDE-->
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
@@ -41,7 +43,6 @@
                     <contextFile>conf/context.xml</contextFile>
                 </configuration>
             </plugin>
-
         </plugins>
     </build>
 
@@ -82,7 +83,6 @@
             <groupId>au.com.tabcorp</groupId>
             <artifactId>betting-app-core</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-all</artifactId>
@@ -103,7 +103,6 @@
             <artifactId>spring-test</artifactId>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
