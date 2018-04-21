@@ -15,7 +15,7 @@ import java.util.List;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.anyListOf;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * This is the test class to unit test the functionalities of InMemoryBetDao class
@@ -39,6 +39,9 @@ public class InMemoryBetsDaoTest {
 
         when(betStore.addBets(anyListOf(Bet.class))).thenReturn(false);
         assertFalse(inMemoryBetsDao.saveBets(betList));
+
+        verify(betStore, times(1)).addBets(anyListOf(Bet.class));
+        verifyNoMoreInteractions(betStore);
     }
 
     @Test
@@ -49,12 +52,18 @@ public class InMemoryBetsDaoTest {
 
         when(betStore.addBets(anyListOf(Bet.class))).thenReturn(true);
         assertTrue(inMemoryBetsDao.saveBets(betList));
+
+        verify(betStore, times(1)).addBets(anyListOf(Bet.class));
+        verifyNoMoreInteractions(betStore);
     }
 
     @Test
     public void saveBets_NullList_False() {
         when(betStore.addBets(anyListOf(Bet.class))).thenReturn(false);
         assertFalse(inMemoryBetsDao.saveBets(null));
+
+        verify(betStore, times(1)).addBets(anyListOf(Bet.class));
+        verifyNoMoreInteractions(betStore);
     }
 
     @Test
@@ -63,6 +72,9 @@ public class InMemoryBetsDaoTest {
 
         when(betStore.loadAllBets()).thenReturn(betList);
         assertEquals(inMemoryBetsDao.getAllBets().size(), 0);
+
+        verify(betStore, times(1)).loadAllBets();
+        verifyNoMoreInteractions(betStore);
     }
 
     @Test
@@ -73,5 +85,8 @@ public class InMemoryBetsDaoTest {
 
         when(betStore.loadAllBets()).thenReturn(betList);
         assertThat(inMemoryBetsDao.getAllBets(), is(betList));
+
+        verify(betStore, times(1)).loadAllBets();
+        verifyNoMoreInteractions(betStore);
     }
 }

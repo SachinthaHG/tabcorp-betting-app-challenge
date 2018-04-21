@@ -4,6 +4,7 @@ import au.com.tabcorp.core.models.Bet;
 import au.com.tabcorp.core.models.BetType;
 import au.com.tabcorp.core.services.BetStoreService;
 import au.com.tabcorp.filters.CORSFilter;
+import au.com.tabcorp.utils.AppSecurity;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,6 +33,9 @@ public class BetControllerTest {
     @Mock
     private BetStoreService betStoreService;
 
+    @Mock
+    private AppSecurity appSecurity;
+
     @InjectMocks
     private BetController betController;
 
@@ -47,9 +51,11 @@ public class BetControllerTest {
         betList.add(new Bet("2018-01-01 12:56", BetType.WIN, 103333, 1081, 500.50));
         betList.add(new Bet("2018-01-01 14:56", BetType.TRIFECTA, 104567, 1080, 100.00));
 
+        when(appSecurity.validateAccessToken(anyString())).thenReturn(true);
         when(betStoreService.saveBets(anyListOf(Bet.class))).thenReturn(true);
         MvcResult response = mockMvc.perform(
                 post("/bets/save")
+                        .param("access_token", "abcdefghijklmnop")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(asJsonString(betList)))
                 .andExpect(status().isCreated()).andReturn();
@@ -64,9 +70,11 @@ public class BetControllerTest {
     public void saveBets_EmptyRequestBody_Conflict_BetsNotSaved() throws Exception {
         List<Bet> betList = new ArrayList<>();
 
+        when(appSecurity.validateAccessToken(anyString())).thenReturn(true);
         when(betStoreService.saveBets(anyListOf(Bet.class))).thenReturn(false);
         MvcResult response = mockMvc.perform(
                 post("/bets/save")
+                        .param("access_token", "abcdefghijklmnop")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(asJsonString(betList)))
                 .andExpect(status().isConflict()).andReturn();
@@ -75,6 +83,29 @@ public class BetControllerTest {
         verifyNoMoreInteractions(betStoreService);
 
         assertEquals(response.getResponse().getContentAsString(), "[\"Best list is null, empty or has duplicate PropNumbers\"]");
+    }
+
+    @Test
+    public void saveBets_UnauthorizedAccessToken_Unauthorized() throws Exception {
+        List<Bet> betList = new ArrayList<>();
+        betList.add(new Bet("2018-01-01 12:56", BetType.WIN, 103333, 1081, 500.50));
+        betList.add(new Bet("2018-01-01 14:56", BetType.TRIFECTA, 104567, 1080, 100.00));
+
+        when(appSecurity.validateAccessToken(anyString())).thenReturn(false);
+        when(betStoreService.saveBets(anyListOf(Bet.class))).thenReturn(true);
+        MvcResult response = mockMvc.perform(
+                post("/bets/save")
+                        .param("access_token", "abc")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(betList)))
+                .andExpect(status().isUnauthorized()).andReturn();
+
+        verify(appSecurity, times(1)).validateAccessToken(anyString());
+        verify(betStoreService, times(0)).saveBets(anyListOf(Bet.class));
+        verifyNoMoreInteractions(appSecurity);
+        verifyNoMoreInteractions(betStoreService);
+
+        assertEquals(response.getResponse().getContentAsString(), "[\"Unauthorized\"]");
     }
 
     private String asJsonString(final Object obj) {
